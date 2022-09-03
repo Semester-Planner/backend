@@ -105,3 +105,6 @@ dist
 
 # json lock
 package-lock.json
+
+# fuck macs
+.DS_Store
