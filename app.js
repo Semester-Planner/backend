@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const routes = require("./app/routes/main");
 
 require("dotenv").config();
 
@@ -8,7 +9,7 @@ const app = express();
 // Request logging
 app.use(morgan("tiny"));
 
-app.get("/", (req, res, next) => res.send("Hello world!"));
+app.use(routes);
 
 app.listen(Number(process.env.PORT) || 3000, () =>
   console.log(`App is listening on port ${Number(process.env.PORT) || 3000}.`)
