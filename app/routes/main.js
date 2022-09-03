@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const { unresolvedPathHandler } = require("../middlewares/error_handlers");
+const { testController } = require("../controllers/main");
+// const { test } = require("../middlewares/test");
 
-router.get("/", (req, res, next) => res.send("Hello world"));
+router.get("/", (_req, res, _next) => res.send("Hello world"));
 
-router.get("/hello", (req, res, next) => res.send("Hello world!!!!!!!"));
+router.post("/hello", testController);
 
 router.use(unresolvedPathHandler);
 
