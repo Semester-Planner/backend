@@ -1,11 +1,11 @@
-import fs from "fs";
-import path from "path";
-import Sequelize from "sequelize";
-import enVariables from "../config.js";
+"use strict";
 
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = enVariables[env];
+const config = require(__dirname + "/../config.js")[env];
 const db = {};
 
 let sequelize;
@@ -20,14 +20,19 @@ if (config.use_env_variable) {
   );
 }
 
+// To make sure the interface to generate UUID exists
+sequelize
+  .getQueryInterface()
+  .sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+
 fs.readdirSync(__dirname)
-  .filter(
-    (file) =>
+  .filter((file) => {
+    return (
       file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
-  )
+    );
+  })
   .forEach((file) => {
-    // eslint-disable-next-line global-require,import/no-dynamic-require
-    const model = require(path.join(__dirname, file)).default(
+    const model = require(path.join(__dirname, file))(
       sequelize,
       Sequelize.DataTypes
     );
@@ -43,4 +48,4 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-export default db;
+module.exports = db;
