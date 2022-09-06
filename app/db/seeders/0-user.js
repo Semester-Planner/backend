@@ -13,7 +13,7 @@ module.exports = {
       },
       {
         username: "Alsje_Lourens",
-        email: "alsje.lourens@warhol.com",
+        email: "alsje.lourens@bread.com",
         passwordHash: "weakasspassword",
       },
     ]);
