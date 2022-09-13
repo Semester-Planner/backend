@@ -9,12 +9,15 @@ module.exports = {
       },
       username: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       passwordHash: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       // last_login_at: {
       //   type: Sequelize.DATE,
