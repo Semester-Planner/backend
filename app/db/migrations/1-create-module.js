@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
       },
       mandatory: {
-        type: Sequelize.BOOL,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       coordinator: {

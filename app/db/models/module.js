@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       mandatory: {
-        type: DataTypes.BOOL,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       coordinator: {
