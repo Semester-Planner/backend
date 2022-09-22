@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
-    static findByUsername(username) {
+    static findByEmail(email) {
       return User.findOne({
-        where: { username },
+        where: { email },
         rejectOnEmpty: true,
       });
     }
@@ -16,9 +16,11 @@ module.exports = (sequelize, DataTypes) => {
   User.init(
     {
       id: {
-        type: Sequelize.UUID,
+        type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: Sequelize.literal("uuid_generate_v4()"),
+        // !!! Temporary fix for Alsje !!!
+        //type: Sequelize.UUID,
+        //defaultValue: Sequelize.literal("uuid_generate_v4()"),
       },
       username: {
         type: DataTypes.STRING,
