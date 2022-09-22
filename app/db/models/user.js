@@ -22,15 +22,19 @@ module.exports = (sequelize, DataTypes) => {
         //type: Sequelize.UUID,
         //defaultValue: Sequelize.literal("uuid_generate_v4()"),
       },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       passwordHash: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      surname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
