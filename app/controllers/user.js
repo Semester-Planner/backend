@@ -8,10 +8,10 @@ const {
 // reset password
 exports.resetPassword = (req, res, next) => {
   const {
-    body: { username, oldPassword, newPassword },
+    body: { email, oldPassword, newPassword },
   } = req;
 
-  User.findByUsername(username)
+  User.findByEMail(email)
     .then((user) => {
       if (user.passwordHash === oldPassword) {
         user.passwordHash = newPassword;
@@ -24,25 +24,24 @@ exports.resetPassword = (req, res, next) => {
     })
     .catch((err) => next(err));
 };
-    
+
 // create user
 exports.createUser = (req, res, next) => {
   const {
-    body: { username, email, passwordHash },
+    body: { email, passwordHash },
   } = req;
 
   db.User.findOrCreate({
     where: {
-      [Op.or]: [{ username }, { email }],
+      [Op.or]: [email],
     },
     defaults: {
-      username: username,
       email: email,
       passwordHash: passwordHash,
     },
   })
     .then(([user, created]) => {
-      if (!created) throw Error("Name or email already in use");
+      if (!created) throw Error("Email already in use");
       return res.status(200).send("Successfully created user");
     })
     .catch((err) => next(err));
