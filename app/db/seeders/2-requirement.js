@@ -5,27 +5,27 @@ module.exports = {
         name: "Oral Exam",
         description:
           "Your appointment will be confirmed by your coordinator no later than 11 November.",
-        date: NULL,
+        date: "2022-01-01 00:00:00",
       },
       {
         name: "Final Submission",
-        description: NULL,
-        date: NULL,
+        description: "",
+        date: "2022-01-01 00:00:00",
       },
       {
         name: "Mid-Semester Check-in",
         description: "Remember to book your check-in before 6 October!",
-        date: NULL,
+        date: "2022-01-01 00:00:00",
       },
       {
         name: "Mid-Semester Hand-in",
-        description: NULL,
-        date: NULL,
+        description: "",
+        date: "2022-01-01 00:00:00",
       },
       {
         name: "Mandatory Check-in",
         description: "Your coordinator is busy, book your check-in asap!",
-        date: NULL,
+        date: "2022-01-01 00:00:00",
       },
     ]);
   },
