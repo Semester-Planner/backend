@@ -5,15 +5,13 @@ const { Module } = db;
 // create module
 exports.createModule = (req, res, next) => {
   const {
-    body: { name, mod_code, description, department, mandatory, coordinator },
+    body: { name, mod_code, department, coordinator },
   } = req;
 
   db.Module.create({
     name,
     mod_code,
-    description,
     department,
-    mandatory,
     coordinator,
   })
 

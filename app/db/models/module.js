@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
 
   Module.init(
     {
+      id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
+        // !!! Temporary fix for Alsje !!!
+        //type: Sequelize.UUID,
+        //defaultValue: Sequelize.literal("uuid_generate_v4()"),
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -17,16 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       department: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      mandatory: {
-        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       coordinator: {

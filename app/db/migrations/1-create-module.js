@@ -2,9 +2,10 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("Module", {
       id: {
-        autoIncrement: true,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.literal("uuid_generate_v4()"),
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
@@ -14,16 +15,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       department: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      mandatory: {
-        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       coordinator: {
