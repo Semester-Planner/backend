@@ -8,13 +8,12 @@ exports.createModule = (req, res, next) => {
     body: { name, mod_code, department, coordinator },
   } = req;
 
-  db.Module.create({
+  Module.create({
     name,
     mod_code,
     department,
     coordinator,
   })
-
     .then(() => {
       return res.status(200).send("Successfully created module :)");
     })
