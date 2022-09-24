@@ -8,7 +8,7 @@ exports.resetPassword = (req, res, next) => {
     body: { email, oldPassword, newPassword },
   } = req;
 
-  User.findByEMail(email)
+  User.findByEmail(email)
     .then((user) => {
       if (user.passwordHash === oldPassword) {
         user.passwordHash = newPassword;
