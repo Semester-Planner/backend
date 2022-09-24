@@ -1,6 +1,6 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Module", {
+    await queryInterface.createTable("Requirement", {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("uuid_generate_v4()"),
@@ -11,22 +11,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      mod_code: {
+      description: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      department: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      coordinator: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      date: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Module");
+    await queryInterface.dropTable("Requirement");
   },
 };

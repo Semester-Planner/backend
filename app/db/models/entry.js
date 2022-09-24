@@ -1,19 +1,13 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Entry extends Model {
     static associate(models) {
       // define association here
     }
-
-    static findByEmail(email) {
-      return User.findOne({
-        where: { email },
-        rejectOnEmpty: true,
-      });
-    }
   }
-  User.init(
+
+  Entry.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -22,29 +16,29 @@ module.exports = (sequelize, DataTypes) => {
         //type: Sequelize.UUID,
         //defaultValue: Sequelize.literal("uuid_generate_v4()"),
       },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      passwordHash: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      surname: {
+      description: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+      },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      notes: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "Entry",
       timestamps: false,
       freezeTableName: true,
     }
   );
-  return User;
+  return Entry;
 };

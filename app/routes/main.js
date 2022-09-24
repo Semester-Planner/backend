@@ -6,6 +6,7 @@ const {
 const { testController } = require("../controllers/main");
 
 const { createUser, resetPassword } = require("../controllers/user");
+const { createModule } = require("../controllers/module");
 
 // const { test } = require("../middlewares/test");
 
@@ -19,6 +20,8 @@ router.patch("/user/resetPassword", resetPassword);
 
 router.post("/hello", testController);
 router.post("/user/createUser", createUser);
+
+router.post("/module/createModule", createModule);
 
 router.use(unresolvedPathHandler);
 router.use(errorHandler);

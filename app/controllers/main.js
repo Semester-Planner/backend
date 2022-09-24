@@ -9,7 +9,7 @@ exports.testController = (req, res, next) => {
   // return res.send("Hello world!!!!!!!");
 
   const {
-    body: { username },
+    body: { email },
   } = req;
 
   // db.User.findOne({
@@ -22,10 +22,10 @@ exports.testController = (req, res, next) => {
   //   })
   //   .catch((err) => next(err));
 
-  User.findByUsername(username)
+  User.findByEmail(email)
     .then((user) => {
       console.log(user);
-      return res.status(200).send(user.username);
+      return res.status(200).send(user.email);
     })
     .catch((err) => next(err));
 };

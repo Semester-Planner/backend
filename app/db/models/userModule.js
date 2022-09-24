@@ -1,13 +1,13 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class Module extends Model {
+  class UserModule extends Model {
     static associate(models) {
       // define association here
     }
   }
 
-  Module.init(
+  UserModule.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -16,29 +16,13 @@ module.exports = (sequelize, DataTypes) => {
         //type: Sequelize.UUID,
         //defaultValue: Sequelize.literal("uuid_generate_v4()"),
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      mod_code: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      department: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      coordinator: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
     },
     {
       sequelize,
-      modelName: "Module",
+      modelName: "UserModule",
       timestamps: false,
       freezeTableName: true,
     }
   );
-  return Module;
+  return UserModule;
 };
