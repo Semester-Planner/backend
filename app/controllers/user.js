@@ -1,9 +1,6 @@
 const db = require("../db/models");
 
-const {
-  User,
-  Sequelize: { Op },
-} = db;
+const { User } = db;
 
 // reset password
 exports.resetPassword = (req, res, next) => {
@@ -11,7 +8,7 @@ exports.resetPassword = (req, res, next) => {
     body: { email, oldPassword, newPassword },
   } = req;
 
-  User.findByEMail(email)
+  User.findByEmail(email)
     .then((user) => {
       if (user.passwordHash === oldPassword) {
         user.passwordHash = newPassword;
@@ -28,15 +25,14 @@ exports.resetPassword = (req, res, next) => {
 // create user
 exports.createUser = (req, res, next) => {
   const {
-    body: { email, passwordHash },
+    body: { name, surname, email, passwordHash },
   } = req;
 
   db.User.findOrCreate({
-    where: {
-      [Op.or]: [email],
-    },
+    where: { email },
     defaults: {
-      email: email,
+      name: name,
+      surname: surname,
       passwordHash: passwordHash,
     },
   })
