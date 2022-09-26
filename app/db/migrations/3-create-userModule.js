@@ -7,6 +7,30 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
+      userId: {
+        type: Sequelize.UUID,
+        references: {
+          model: {
+            tableName: "User",
+          },
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
+      moduleId: {
+        type: Sequelize.UUID,
+        references: {
+          model: {
+            tableName: "Module",
+          },
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
     });
   },
 

@@ -1,11 +1,7 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
-  class UserModule extends Model {
-    static associate(models) {
-      // define association here
-    }
-  }
+  class UserModule extends Model {}
 
   UserModule.init(
     {
