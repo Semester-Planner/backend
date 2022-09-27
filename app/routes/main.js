@@ -12,6 +12,9 @@ const { createModule } = require("../controllers/module");
 
 // routers
 router.get("/", (_req, res, _next) => res.send("Hello world"));
+router.get("/connection", (_req, res, _next) =>
+  res.send({ message: "Hello from the server :))" })
+);
 
 router.patch("/user/resetPassword", resetPassword);
 
