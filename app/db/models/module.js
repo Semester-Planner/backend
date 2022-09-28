@@ -7,6 +7,10 @@ module.exports = (sequelize, Sequelize) => {
         through: models.UserModule,
         foreignKey: "moduleId",
       });
+      this.belongsToMany(models.Requirement, {
+        through: models.ModuleRequirement,
+        foreignKey: "moduleId",
+      });
     }
   }
 

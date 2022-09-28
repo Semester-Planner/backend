@@ -3,7 +3,10 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
   class Requirement extends Model {
     static associate(models) {
-      // define association here
+      this.belongsToMany(models.Module, {
+        through: models.ModuleRequirement,
+        foreignKey: "requirementId",
+      });
     }
   }
 
