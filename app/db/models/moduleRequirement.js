@@ -1,15 +1,9 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
-  class UserModule extends Model {
-    static associate(models) {
-      this.hasMany(models.Entry, {
-        foreignKey: "userModuleId",
-      });
-    }
-  }
+  class ModuleRequirement extends Model {}
 
-  UserModule.init(
+  ModuleRequirement.init(
     {
       id: {
         type: Sequelize.UUID,
@@ -19,10 +13,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     {
       sequelize,
-      modelName: "UserModule",
+      modelName: "ModuleRequirement",
       timestamps: false,
       freezeTableName: true,
     }
   );
-  return UserModule;
+  return ModuleRequirement;
 };

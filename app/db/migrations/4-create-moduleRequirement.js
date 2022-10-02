@@ -1,23 +1,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("UserModule", {
+    await queryInterface.createTable("ModuleRequirement", {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("uuid_generate_v4()"),
         primaryKey: true,
         allowNull: false,
-      },
-      userId: {
-        type: Sequelize.UUID,
-        references: {
-          model: {
-            tableName: "User",
-          },
-          key: "id",
-        },
-        allowNull: false,
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
       },
       moduleId: {
         type: Sequelize.UUID,
@@ -31,10 +19,22 @@ module.exports = {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
+      requirementId: {
+        type: Sequelize.UUID,
+        references: {
+          model: {
+            tableName: "Requirement",
+          },
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("UserModule");
+    await queryInterface.dropTable("ModuleRequirement");
   },
 };
