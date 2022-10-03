@@ -1,6 +1,28 @@
 const db = require("../db/models");
 
 const { User } = db;
+const { Module } = db;
+
+// create user
+exports.createUser = (req, res, next) => {
+  const {
+    body: { name, surname, email, passwordHash },
+  } = req;
+
+  db.User.findOrCreate({
+    where: { email },
+    defaults: {
+      name: name,
+      surname: surname,
+      passwordHash: passwordHash,
+    },
+  })
+    .then(([user, created]) => {
+      if (!created) throw Error("Email already in use");
+      return res.status(200).send("Successfully created user");
+    })
+    .catch((err) => next(err));
+};
 
 // reset password
 exports.resetPassword = (req, res, next) => {
@@ -22,23 +44,25 @@ exports.resetPassword = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-// create user
-exports.createUser = (req, res, next) => {
+// find all user's modules
+exports.findAllUserModules = (req, res, next) => {
   const {
-    body: { name, surname, email, passwordHash },
+    body: { userId },
   } = req;
 
-  db.User.findOrCreate({
-    where: { email },
-    defaults: {
-      name: name,
-      surname: surname,
-      passwordHash: passwordHash,
-    },
+  User.findAll({
+    where: { id: userId },
+    attributes: { exclude: ["name", "surname", "email", "passwordHash"] },
+    include: [
+      {
+        model: Module,
+        required: true,
+        through: { attributes: [] },
+      },
+    ],
   })
-    .then(([user, created]) => {
-      if (!created) throw Error("Email already in use");
-      return res.status(200).send("Successfully created user");
+    .then((modules) => {
+      return res.status(200).json(modules);
     })
     .catch((err) => next(err));
 };
