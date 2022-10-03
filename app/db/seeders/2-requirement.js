@@ -4,28 +4,49 @@ module.exports = {
       {
         name: "Oral Exam",
         description:
-          "Your appointment will be confirmed by your coordinator no later than 11 November.",
-        date: "2022-01-01 00:00:00",
+          "Final publication of oral exam appointments are between 18 November and 2 December.",
+        date: "2022-10-01 00:00:00",
       },
       {
-        name: "Final Submission",
-        description: "",
-        date: "2022-01-01 00:00:00",
+        name: "Optional Oral Exam",
+        description:
+          "Final publication of oral exam appointments are between 18 November and 2 December.",
+        date: "2022-10-01 00:00:00",
+      },
+      {
+        name: "Deadline: Hand-ins / Self-Assessment (PM, SE, IS)",
+        description: "Enter details here, example: 2000 word Essay..",
+        date: "2022-11-18 16:59:00",
+      },
+      {
+        name: "Deadline: Hand-in / Self-Assessment (ID)",
+        description: "Enter details here, example: 2000 word Essay..",
+        date: "2022-11-25 16:59:00",
+      },
+      {
+        name: "Deadline: Hand-in / Self-Assessment (STS)",
+        description: "Enter details here, example: 2000 word Essay..",
+        date: "2023-01-10 16:59:00",
       },
       {
         name: "Mid-Semester Check-in",
-        description: "Remember to book your check-in before 6 October!",
-        date: "2022-01-01 00:00:00",
+        description: "Don't wait too long to book your check-in!",
+        date: "2022-10-01 00:00:00",
       },
       {
         name: "Mid-Semester Hand-in",
-        description: "",
-        date: "2022-01-01 00:00:00",
+        description: "Enter details here, example: 2000 word Essay..",
+        date: "2022-10-01 00:00:00",
       },
       {
         name: "Mandatory Check-in",
-        description: "Your coordinator is busy, book your check-in asap!",
-        date: "2022-01-01 00:00:00",
+        description: "Your coordinator is busy, book your check-ins asap!",
+        date: "2022-10-01 00:00:00",
+      },
+      {
+        name: "Read a Book",
+        description: "Give yourself enough time :)",
+        date: "2022-10-01 00:00:00",
       },
     ]);
   },
