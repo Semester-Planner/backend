@@ -50,7 +50,7 @@ exports.findAllUserModules = (req, res, next) => {
     body: { userId },
   } = req;
 
-  User.findAll({
+  User.findOne({
     where: { id: userId },
     attributes: { exclude: ["name", "surname", "email", "passwordHash"] },
     include: [
@@ -61,8 +61,8 @@ exports.findAllUserModules = (req, res, next) => {
       },
     ],
   })
-    .then((modules) => {
-      return res.status(200).json(modules[0].Modules);
+    .then((user) => {
+      return res.status(200).json(user.Modules);
     })
     .catch((err) => next(err));
 };
