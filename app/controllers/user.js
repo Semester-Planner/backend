@@ -62,7 +62,7 @@ exports.findAllUserModules = (req, res, next) => {
     ],
   })
     .then((modules) => {
-      return res.status(200).json(modules);
+      return res.status(200).json(modules[0].Modules);
     })
     .catch((err) => next(err));
 };
