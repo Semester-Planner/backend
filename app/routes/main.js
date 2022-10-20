@@ -12,7 +12,7 @@ const {
   resetPassword,
   findAllUserModules,
 } = require("../controllers/user");
-const { createModule } = require("../controllers/module");
+const { createModule, findAllModules } = require("../controllers/module");
 
 // const { test } = require("../middlewares/test");
 
@@ -118,6 +118,8 @@ router.post("/hello", testController);
 router.post("/user/createUser", createUser);
 router.patch("/user/resetPassword", resetPassword);
 router.post("/user/findAllUserModules", findAllUserModules);
+
+router.post("/module/getAllModules", getAllModules);
 
 router.post("/module/createModule", createModule);
 
