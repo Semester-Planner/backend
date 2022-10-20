@@ -4,20 +4,53 @@ Targeting CODE students, the Semester Planner aims to help students manage their
 
 Table of Content:
 
-1. [Intallation and Setup](#installation-and-setup)
+1. [Prerequisites](#prerequisites)
+1. [Setup](#setup)
 1. [Entity Relationship Model](#entity-relationship-model)
 1. [Usage](#usage)
 1. [Tests](#test)
 1. [Credits](#credits)
 1. [License](#license)
 
-## Installation and Setup
+## Prerequisites
 
-Add code block format example:
+1. Setup local database with [PostgreSQL](https://www.postgresql.org/) (v14.5)
+2. Install [Node.js](https://nodejs.org/en/)
+3. Download/Clone both git repositories: frontend & backend
+
+## Setup
+
+#### 1. Navigate to /frontend
+
+#### 2. Install all frontend dependencies
 
 ```
 npm i
+```
+
+#### 3. Navigate to /backend
+
+#### 4. Install all backend dependencies
+
+```
+npm i
+```
+
+#### 5. Setup your environment
+
+- create a .env file within /backend
+- add and save all the variables found in .env.example
+  - see [Obtain OAuth 2.0 credentials from the Google API Console](https://developers.google.com/identity/protocols/oauth2) for GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET
+
+#### 6. Run and setup your database
+
+```
 npm run setup:db
+```
+
+#### 7. Finally run the servers
+
+```
 npm run start
 ```
 
@@ -33,3 +66,25 @@ Add image of ERM (syntax example:)
 ## Credits
 
 ## License
+
+MIT License
+
+Copyright (c) 2022 Semester-Planner
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
