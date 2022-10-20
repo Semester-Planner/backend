@@ -14,7 +14,7 @@ module.exports = {
         surname: "Magi",
       },
       {
-        email: "alsje.lourens@bread.com",
+        email: "alsje.lourens@code.berlin",
         passwordHash: "weakasspassword",
         name: "Alsje",
         surname: "Lourens",
