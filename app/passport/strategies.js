@@ -1,4 +1,4 @@
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, PORT } = process.env;
 
 const db = require("../db/models");
 
@@ -12,7 +12,7 @@ var GoogleStrategy = require("passport-google-oauth20").Strategy;
  * @param {Object} passport - passport object
  */
 exports.register = async (passport) => {
-  const callbackURL = "http://localhost:3001/auth/google/callback";
+  const callbackURL = `http://localhost:${PORT || "3001"}/auth/google/callback`;
 
   // Use Google oauth2 strategy
   passport.use(
