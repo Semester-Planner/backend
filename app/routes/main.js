@@ -1,10 +1,14 @@
 const router = require("express").Router();
-const userRoutes = require("./user.routes");
 
+// import middlewares
 const {
   unresolvedPathHandler,
   errorHandler,
 } = require("../middlewares/error_handlers");
+
+// const { test } = require("../middlewares/test");
+
+// import controllers
 const { testController } = require("../controllers/main");
 
 const {
@@ -12,26 +16,33 @@ const {
   resetPassword,
   findAllUserModules,
 } = require("../controllers/user");
-const { createModule, findAllModules } = require("../controllers/module");
 
-// const { test } = require("../middlewares/test");
+const { createModule, getAllModules } = require("../controllers/module");
 
-// import other routers
-router.use("/user", userRoutes);
+// import all routers
+const userRoutes = require("./user.routes");
 
-// routers
+// main routes (REFACTOR)
 router.get("/test", (_req, res, _next) => res.send("Hello world"));
 router.get("/connection", (_req, res, _next) =>
   res.send({ message: "Hello from the server :))" })
 );
+router.use("/user", userRoutes);
+router.post("/hello", testController);
+router.post("/user/createUser", createUser);
+router.patch("/user/resetPassword", resetPassword);
+router.post("/user/findAllUserModules", findAllUserModules);
+
+router.post("/module/getAllModules", getAllModules);
+
+router.post("/module/createModule", createModule);
 
 // -- refactor and add to correct files ------
 const session = require("express-session");
 const passport = require("passport");
-const { authenticate } = require("passport");
 require("../passport/setup")(passport);
 
-// Enable sessions
+// enable sessions
 router.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -40,70 +51,50 @@ router.use(
   })
 );
 
-// Passport setup
+// passport setup
 router.use(passport.initialize());
 router.use(passport.session());
 
-// Register all passport strategies
+// register all passport strategies
 require("../passport/strategies").register(passport);
 
-// Consent screen
+// consent screen
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["email"] })
 );
 
-// Authorized redirect (defined in Google Developer Console)
+// authorized redirect
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function (req, res) {
-    // Successful authentication, redirect to the app.
+    // successful authentication, redirect to the app.
     res.redirect("/");
   }
 );
 
-// Index page
-router.get("/", async (req, res) => {
+// main route
+router.get("/", async (req, res, _next) => {
   const user = await req.user;
   if (user) {
-    res.send(`
-    <div style="display:flex; justify-content:center; align-items:center; height: 100vh">
-      <div style="text-align:center">
-        <h1 style="font-size: 32px">
-          Welcome back ${user.name}!
-        </h1>
-        <a href="/logout">
-          <button style="font-size: 32px; padding:0.5em">
-            Log out
-          </button>
-        </a>
-      </div>
-    </div>
-    `);
+    res.status(200).json(user);
   } else {
     res.redirect("/login");
   }
 });
 
 // login user
-router.get("/login", (req, res) => {
-  if (req.user) {
+router.get("/login", async (req, res, _next) => {
+  const user = await req.user;
+  if (user) {
     res.redirect("/");
   } else {
-    res.send(`
-      <div style="display:flex; justify-content:center; align-items:center; height: 100vh">
-        <a href="/auth/google">
-          <button style="font-size: 32px; padding:0.5em">
-            Sign in with Google
-          </button>
-        </a>
-      </div>
-    `);
+    res.status(200).json(user);
   }
 });
 
-// log out user ((((!! STATUS 500 !!)))
+// log out user
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) {
@@ -113,15 +104,6 @@ router.get("/logout", (req, res, next) => {
   });
 });
 // -------------------------------------------
-
-router.post("/hello", testController);
-router.post("/user/createUser", createUser);
-router.patch("/user/resetPassword", resetPassword);
-router.post("/user/findAllUserModules", findAllUserModules);
-
-router.post("/module/getAllModules", getAllModules);
-
-router.post("/module/createModule", createModule);
 
 router.use(unresolvedPathHandler);
 router.use(errorHandler);
