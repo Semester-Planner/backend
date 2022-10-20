@@ -2,19 +2,19 @@ module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert("User", [
       {
-        email: "massi.ricci@bread.com",
+        email: "massimiliano.ricci@code.berlin",
         passwordHash: "weakasspassword",
         name: "Massi",
         surname: "Ricci",
       },
       {
-        email: "donna.magi@bread.com",
+        email: "donna.magi@code.berlin",
         passwordHash: "weakasspassword",
         name: "Donna",
         surname: "Magi",
       },
       {
-        email: "alsje.lourens@bread.com",
+        email: "alsje.lourens@code.berlin",
         passwordHash: "weakasspassword",
         name: "Alsje",
         surname: "Lourens",
