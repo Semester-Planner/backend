@@ -3,47 +3,6 @@ const db = require("../db/models");
 const { User } = db;
 const { Module } = db;
 
-// create user
-exports.createUser = (req, res, next) => {
-  const {
-    body: { name, surname, email, passwordHash },
-  } = req;
-
-  db.User.findOrCreate({
-    where: { email },
-    defaults: {
-      name: name,
-      surname: surname,
-      passwordHash: passwordHash,
-    },
-  })
-    .then(([user, created]) => {
-      if (!created) throw Error("Email already in use");
-      return res.status(200).send("Successfully created user");
-    })
-    .catch((err) => next(err));
-};
-
-// reset password
-exports.resetPassword = (req, res, next) => {
-  const {
-    body: { email, oldPassword, newPassword },
-  } = req;
-
-  User.findByEmail(email)
-    .then((user) => {
-      if (user.passwordHash === oldPassword) {
-        user.passwordHash = newPassword;
-        return user.save();
-      }
-      throw Error("Incorrect password");
-    })
-    .then(() => {
-      return res.status(200).send("Password changed successfully :)");
-    })
-    .catch((err) => next(err));
-};
-
 // find all user's modules
 exports.findAllUserModules = (req, res, next) => {
   const {
@@ -52,7 +11,7 @@ exports.findAllUserModules = (req, res, next) => {
 
   User.findOne({
     where: { id: userId },
-    attributes: { exclude: ["name", "surname", "email", "passwordHash"] },
+    attributes: { exclude: ["name", "surname", "email", "picture"] },
     include: [
       {
         model: Module,
@@ -65,4 +24,17 @@ exports.findAllUserModules = (req, res, next) => {
       return res.status(200).json(user.Modules);
     })
     .catch((err) => next(err));
+};
+
+exports.createUser = async (data) => {
+  const user = await User.findOrCreate({
+    where: { email: data._json.email },
+    defaults: {
+      name: data._json.given_name,
+      surname: data._json.family_name,
+      picture: data._json.picture,
+    },
+    raw: true,
+  });
+  return user;
 };

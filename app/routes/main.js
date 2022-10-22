@@ -6,16 +6,7 @@ const {
   errorHandler,
 } = require("../middlewares/error_handlers");
 
-// const { test } = require("../middlewares/test");
-
-// import controllers
-const { testController } = require("../controllers/main");
-
-const {
-  // createUser,
-  resetPassword,
-  findAllUserModules,
-} = require("../controllers/user");
+const { findAllUserModules } = require("../controllers/user");
 
 const { createModule, getAllModules } = require("../controllers/module");
 
@@ -26,10 +17,6 @@ const authRoutes = require("./auth.routes");
 // main routes
 router.use("/user", userRoutes);
 router.use("/auth", authRoutes);
-
-//router.post("/hello", testController);
-//router.post("/user/createUser", createUser);
-//router.patch("/user/resetPassword", resetPassword);
 
 router.post("/user/findAllUserModules", findAllUserModules);
 router.post("/module/getAllModules", getAllModules);
