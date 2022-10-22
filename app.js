@@ -37,4 +37,5 @@ app.listen(Number(process.env.PORT) || 3001, () =>
   console.log(`App is listening on port ${Number(process.env.PORT) || 3001}.`)
 );
 
+module.exports = app;
 return app;
