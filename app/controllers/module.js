@@ -19,3 +19,12 @@ exports.createModule = (req, res, next) => {
     })
     .catch((err) => next(err));
 };
+
+// get all modules
+exports.getAllModules = (_req, res, next) => {
+  Module.findAll()
+    .then((modules) => {
+      return res.status(200).json(modules);
+    })
+    .catch((err) => next(err));
+};
