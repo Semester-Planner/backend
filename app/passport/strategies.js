@@ -23,9 +23,15 @@ exports.register = async (passport) => {
         callbackURL,
       },
       async (_accessToken, _refreshToken, data, done) => {
-        // Find user email in database
-        const user = await User.findOne({
+        // Find or create user email in database
+        const user = await User.findOrCreate({
           where: { email: data._json.email },
+          defaults: {
+            name: data._json.given_name,
+            surname: data._json.family_name,
+            picture: data._json.picture,
+          },
+          raw: true,
         });
         if (user) return done(null, user);
         return done();

@@ -5,7 +5,7 @@ const { User } = db;
 module.exports = (passport) => {
   passport.serializeUser((user, done) => {
     // store userId in the session so we can retrieve it later
-    done(null, user.id);
+    done(null, user[0].id);
   });
 
   passport.deserializeUser(async (id, done) => {

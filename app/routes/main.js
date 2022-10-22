@@ -12,7 +12,7 @@ const {
 const { testController } = require("../controllers/main");
 
 const {
-  createUser,
+  // createUser,
   resetPassword,
   findAllUserModules,
 } = require("../controllers/user");
@@ -29,8 +29,8 @@ router.get("/connection", (_req, res, _next) =>
 );
 router.use("/user", userRoutes);
 router.post("/hello", testController);
-router.post("/user/createUser", createUser);
-router.patch("/user/resetPassword", resetPassword);
+//router.post("/user/createUser", createUser);
+//router.patch("/user/resetPassword", resetPassword);
 router.post("/user/findAllUserModules", findAllUserModules);
 
 router.post("/module/getAllModules", getAllModules);
@@ -61,7 +61,7 @@ require("../passport/strategies").register(passport);
 // consent screen
 router.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["email"] })
+  passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
 // authorized redirect
@@ -70,12 +70,14 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   function (req, res) {
     // successful authentication, redirect to the app.
+    console.log("successful callback - redirect to /");
     res.redirect("/");
   }
 );
 
 // main route
 router.get("/", async (req, res, _next) => {
+  console.log("successful get / - redirect to to /login");
   const user = await req.user;
   if (user) {
     res.status(200).json(user);
@@ -86,6 +88,7 @@ router.get("/", async (req, res, _next) => {
 
 // login user
 router.get("/login", async (req, res, _next) => {
+  console.log("successful /login - redirect to /");
   const user = await req.user;
   if (user) {
     res.redirect("/");
