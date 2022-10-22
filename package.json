@@ -4,7 +4,8 @@
   "description": "blabla",
   "main": "app.js",
   "scripts": {
-    "test": "mocha ./app/test",
+    "setup:test": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate",
+    "test": "cross-env NODE_ENV=test mocha ./app/test",
     "start": "node app.js",
     "dev": "nodemon -e js,json --quiet --trace-warnings app.js",
     "setup:db": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all"
@@ -32,6 +33,7 @@
     "sequelize": "^6.21.4"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "husky": "^8.0.1",
     "morgan": "^1.10.0",
