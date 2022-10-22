@@ -11,7 +11,7 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // request logging
 app.use(morgan("tiny"));
