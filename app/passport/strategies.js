@@ -1,6 +1,7 @@
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, PORT } = process.env;
 
 const db = require("../db/models");
+const { createUser } = require("../controllers/user");
 
 const { User } = db;
 
@@ -24,15 +25,7 @@ exports.register = async (passport) => {
       },
       async (_accessToken, _refreshToken, data, done) => {
         // find or create user email in database
-        const user = await User.findOrCreate({
-          where: { email: data._json.email },
-          defaults: {
-            name: data._json.given_name,
-            surname: data._json.family_name,
-            picture: data._json.picture,
-          },
-          raw: true,
-        });
+        const user = await createUser(data);
         if (user) return done(null, user);
         return done();
       }
