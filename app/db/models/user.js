@@ -31,10 +31,6 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      passwordHash: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -42,6 +38,10 @@ module.exports = (sequelize, Sequelize) => {
       surname: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      picture: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
     },
     {
