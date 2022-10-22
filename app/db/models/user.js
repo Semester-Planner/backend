@@ -8,7 +8,11 @@ module.exports = (sequelize, Sequelize) => {
         foreignKey: "userId",
       });
     }
-
+    static findById(userId) {
+      return User.findByPk(userId, {
+        rejectOnEmpty: true,
+      });
+    }
     static findByEmail(email) {
       return User.findOne({
         where: { email },
