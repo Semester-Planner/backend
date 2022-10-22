@@ -13,7 +13,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 
-// Request logging
+// request logging
 app.use(morgan("tiny"));
 
 // enable sessions

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
+const { successfulLogin, logout } = require("../controllers/auth");
 
 // consent screen
 router.get(
@@ -10,12 +11,11 @@ router.get(
 // authorized redirect
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
-  function (req, res) {
-    // successful authentication, redirect to the app.
-    console.log("successful callback - redirect to /");
-    res.redirect("/");
-  }
+  passport.authenticate("google"),
+  successfulLogin
 );
+
+// log out user
+router.get("/logout", logout);
 
 module.exports = router;
