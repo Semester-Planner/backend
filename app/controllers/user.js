@@ -4,25 +4,16 @@ const { User } = db;
 const { Module } = db;
 
 // find all user's modules
-exports.findAllUserModules = (req, res, next) => {
-  const {
-    body: { userId },
-  } = req;
+exports.findAllUserModules = async (req, res, next) => {
+  const { user } = req;
 
-  User.findOne({
-    where: { id: userId },
-    attributes: { exclude: ["name", "surname", "email", "picture"] },
-    include: [
-      {
-        model: Module,
-        required: true,
-        through: { attributes: [] },
-      },
-    ],
-  })
-    .then((user) => {
-      return res.status(200).json(user.Modules);
-    })
+  if (!user) {
+    return res.status(403).json("Not authenticated");
+  }
+
+  user
+    .getModules()
+    .then((modules) => res.status(200).json(modules))
     .catch((err) => next(err));
 };
 
