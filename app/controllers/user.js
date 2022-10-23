@@ -7,10 +7,6 @@ const { Module } = db;
 exports.findAllUserModules = async (req, res, next) => {
   const { user } = req;
 
-  if (!user) {
-    return res.status(403).json("Not authenticated");
-  }
-
   user
     .getModules()
     .then((modules) => res.status(200).json(modules))
