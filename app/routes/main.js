@@ -18,7 +18,7 @@ const authRoutes = require("./auth.routes");
 router.use("/user", userRoutes);
 router.use("/auth", authRoutes);
 
-router.post("/user/findAllUserModules", findAllUserModules);
+router.get("/user/findAllUserModules", findAllUserModules);
 router.post("/module/getAllModules", getAllModules);
 router.post("/module/createModule", createModule);
 
