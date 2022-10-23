@@ -11,8 +11,9 @@ router.get(
 // authorized redirect
 router.get(
   "/google/callback",
-  passport.authenticate("google"),
-  successfulLogin
+  passport.authenticate("google", {
+    successRedirect: "http://localhost:3000/modules",
+  })
 );
 
 // log out user
