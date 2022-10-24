@@ -7,9 +7,6 @@ const app = require("../../app");
 const passport = require("passport");
 const { sequelize } = require("../db/models");
 const { QueryTypes } = require("sequelize");
-const { CookieAccessInfo } = require("cookiejar");
-
-const { NODE_ENV } = process.env;
 
 chai.use(chaiHTTP);
 
@@ -28,7 +25,7 @@ describe("GET /auth/google", () => {
     _json: {
       sub: "115903246074145320432",
       name: "Cody Studentis",
-      given_name: "Studentis",
+      given_name: "Cody",
       family_name: "Studentis",
       picture:
         "https://lh3.googleusercontent.com/a/ALm5wu0q1lvDd5u_YtVaA_STBcXifC8uo8xajZCDhlk=s96-c",
@@ -46,13 +43,10 @@ describe("GET /auth/google", () => {
         { type: QueryTypes.SELECT }
       );
 
-      console.log(res.header);
-
       expect(err).to.be.null;
       expect(res).to.have.status(200);
-      //expect(res).to.have.cookie("connect.sid");
-      expect("set-cookie", /connect.sid=.*; Path=\/; HttpOnly/);
-      //expect(res).to.have.cookie('connect.sid');
+      expect(user).to.not.be.null;
+      expect(res).to.have.cookie("connect.sid");
       done();
     });
   });

@@ -22,6 +22,10 @@ app.use(
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave: true,
+    cookie: {
+      name: "connect.sid",
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
   })
 );
 
