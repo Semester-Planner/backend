@@ -22,6 +22,10 @@ app.use(
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave: true,
+    cookie: {
+      name: "connect.sid",
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
   })
 );
 
@@ -37,4 +41,5 @@ app.listen(Number(process.env.PORT) || 3001, () =>
   console.log(`App is listening on port ${Number(process.env.PORT) || 3001}.`)
 );
 
+module.exports = app;
 return app;
