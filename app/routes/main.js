@@ -12,17 +12,15 @@ const { findAllUserModules } = require("../controllers/user");
 const { createModule, getAllModules } = require("../controllers/module");
 
 // import all routers
-const userRoutes = require("./user.routes");
 const authRoutes = require("./auth.routes");
+const userRoutes = require("./user.routes");
+const moduleRoutes = require("./module.routes");
 
 // main routes
 router.use("/auth", authRoutes);
-router.use(checkAuth);
+//router.use(checkAuth);
 router.use("/user", userRoutes);
-
-router.get("/user/findAllUserModules", findAllUserModules);
-router.post("/module/getAllModules", getAllModules);
-router.post("/module/createModule", createModule);
+router.use("/module", moduleRoutes);
 
 router.use(unresolvedPathHandler);
 router.use(errorHandler);
