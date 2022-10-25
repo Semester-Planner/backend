@@ -12,10 +12,10 @@ exports.getAllModules = (_req, res, next) => {
 };
 
 // get all user's modules
-exports.getAllUserModules = async (req, res, next) => {
+exports.getAllUserModules = (req, res, next) => {
   const { user } = req;
 
-  user
+  return user
     .getModules()
     .then((modules) => res.status(200).json(modules))
     .catch((err) => next(err));
@@ -36,5 +36,18 @@ exports.createModule = (req, res, next) => {
     .then(() => {
       return res.status(200).send("Successfully created module :)");
     })
+    .catch((err) => next(err));
+};
+
+// adds module to user
+exports.addModule = (req, res, next) => {
+  const {
+    body: { id },
+    user,
+  } = req;
+
+  return user
+    .addModule(id)
+    .then(() => res.status(200).send("Successfully added module :)"))
     .catch((err) => next(err));
 };
