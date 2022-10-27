@@ -29,7 +29,6 @@ exports.register = async (passport) => {
       async (_accessToken, _refreshToken, data, done) => {
         // find or create user email in database
         const user = await createUser(data);
-        console.log(user);
         if (user) return done(null, user);
         return done();
       }
