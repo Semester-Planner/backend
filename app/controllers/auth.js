@@ -19,5 +19,5 @@ exports.logout = (req, res, next) => {
 
 // check session
 exports.checkAuth = (req, res, next) => {
-  res.status(res.isAuthenticated() ? 200 : 401).send();
+  res.status(req.isAuthenticated() ? 200 : 401).send();
 };
