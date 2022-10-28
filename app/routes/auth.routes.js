@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-const { successfulLogin, logout } = require("../controllers/auth");
+const { successfulLogin, logout, checkAuth } = require("../controllers/auth");
 
 const { NODE_ENV } = process.env;
 
@@ -28,5 +28,8 @@ if (NODE_ENV != "test") {
 
 // log out user
 router.get("/logout", logout);
+
+// checks session
+router.get("/session", checkAuth);
 
 module.exports = router;

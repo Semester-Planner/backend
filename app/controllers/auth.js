@@ -16,3 +16,8 @@ exports.logout = (req, res, next) => {
     return res.status(200).send("Successfully logged out");
   });
 };
+
+// check session
+exports.checkAuth = (req, res, next) => {
+  res.status(res.isAuthenticated() ? 200 : 401).send();
+};
