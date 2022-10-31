@@ -22,50 +22,37 @@ function randomDate(start, end) {
 // create entry for each UserModule
 module.exports = {
   up: async (queryInterface) => {
-    const usermods = await queryInterface.sequelize.query(
-      'SELECT * FROM "UserModule"'
-    );
+    const data = (
+      await queryInterface.sequelize.query(
+        `SELECT 
+        "UserModule"."id" AS "umId",
+        "Module"."name" AS "modName",
+        "Requirement"."name" AS "reqName",
+        "Requirement"."description" AS "reqDescription",
+        "Requirement"."date" AS "reqDate"
+        FROM "UserModule" 
+        JOIN "ModuleRequirement" 
+        ON "UserModule"."moduleId"="ModuleRequirement"."moduleId"
+        JOIN "Requirement"
+        ON "ModuleRequirement"."requirementId"="Requirement"."id"
+        JOIN "Module"
+        ON "UserModule"."moduleId"="Module"."id";`
+      )
+    )[0];
 
-    const sermods = await usermods[0];
-    console.log(sermods);
+    const entries = [];
 
-    const a = [];
+    data.forEach((elem) => {
+      entries.push({
+        userModuleId: elem.umId,
+        name: `${elem.modName}: ${elem.reqName}`,
+        description: elem.reqDescription,
+        date: elem.reqDate,
+        notes: null,
+      });
+    });
 
-    // returns
-
-    // WE NEED MODULE NAME, REQUIRMENT NAME + DESCRIPTION to be returned for each USERMODULE FOR ENTRY
-    const myFunction = async () => {
-      for (const mod of sermods) {
-        const reqs = await queryInterface.sequelize.query(
-          `SELECT id FROM "ModuleRequirement" WHERE "ModuleRequirement"."moduleId"='${mod.moduleId}';`
-        );
-        console.log(reqs[0]);
-        a.push(reqs);
-      }
-      console.log(a);
-      // const entries = await queryInterface.sequelize.query(
-      //   'SELECT '
-      // );
-      // console.log(sermods.length);
-      // return reqIds;
-    };
-
-    await myFunction();
-
-    //console.log(reqId[0]);
-
-    // const elements = () => {
-    //   return usermods[0].map((elem) => {
-    //     return {
-    //       //requirementId: reqId[0],
-    //       name: randString(15),
-    //       description: randString(50),
-    //       date: randomDate(new Date(2022, 0, 1), new Date(2022, 12, 15)),
-    //       notes: randString(25),
-    //     };
-    //   });
-    // };
-    // await queryInterface.bulkInsert("Entry", elements());
+    await queryInterface.bulkInsert("Entry", entries);
   },
 
   down: async (queryInterface) => {
