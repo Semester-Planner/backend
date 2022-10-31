@@ -39,7 +39,7 @@ exports.createModule = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-// adds module to user
+// adds module to userModule
 exports.addModule = (req, res, next) => {
   const {
     body: { id },
@@ -49,5 +49,18 @@ exports.addModule = (req, res, next) => {
   return user
     .addModule(id)
     .then(() => res.status(200).send("Successfully added module :)"))
+    .catch((err) => next(err));
+};
+
+// removes module from userModule
+exports.removeModule = (req, res, next) => {
+  const {
+    body: { id },
+    user,
+  } = req;
+
+  return user
+    .removeModule(id)
+    .then(() => res.status(200).send("Successfully removed module :)"))
     .catch((err) => next(err));
 };
