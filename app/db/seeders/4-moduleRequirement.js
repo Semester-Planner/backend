@@ -1,35 +1,27 @@
 module.exports = {
   up: async (queryInterface) => {
-    const STSmodules = await queryInterface.sequelize.query(
-      'SELECT id FROM "Module" WHERE "department"=\'STS\''
-    );
-    const modsreq = await queryInterface.sequelize.query(
-      'SELECT id FROM "Requirement"'
-    );
+    const STSmodules = (
+      await queryInterface.sequelize.query(
+        'SELECT id FROM "Module" WHERE "department"=\'STS\''
+      )
+    )[0];
+    const modsreq = (
+      await queryInterface.sequelize.query('SELECT id FROM "Requirement"')
+    )[0];
 
-    // const elements = () => {
-    //   return modsreq[0].map((elem) => {
-    //     return {
-    //       moduleId: STSmodules[0][0].id,
-    //       requirementId: elem.id,
-    //     };
-    //   });
-    // };
-
-    const elements = () => {
-      const elem = [];
-      STSmodules[0].forEach((mod) => {
-        for (var i = 0; i < Math.floor(Math.random() * 14); i++) {
+    const elem = [];
+    STSmodules.forEach((mod) => {
+      modsreq.forEach((req) => {
+        if (Math.random() > 0.6) {
           elem.push({
             moduleId: mod.id,
-            requirementId:
-              modsreq[0][Math.floor(Math.random() * modsreq.length)].id,
+            requirementId: req.id,
           });
         }
       });
-      return elem;
-    };
-    await queryInterface.bulkInsert("ModuleRequirement", elements());
+    });
+
+    await queryInterface.bulkInsert("ModuleRequirement", elem);
   },
 
   down: async (queryInterface) => {
