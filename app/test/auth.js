@@ -12,42 +12,45 @@ chai.use(chaiHTTP);
 
 const agent = chai.request.agent(app);
 
-describe("GET /auth/google", () => {
-  const strategy = passport._strategies["google"];
+// describe("AuthTests", () => {
 
-  strategy._token_response = {
-    access_token: "at-1234",
-    refresh_token: "dsfsf0",
-    expires_in: 3600,
-  };
+//   describe("GET /auth/google", () => {
+//     const strategy = passport._strategies["google"];
 
-  strategy._profile = {
-    _json: {
-      sub: "115903246074145320432",
-      name: "Cody Studentis",
-      given_name: "Cody",
-      family_name: "Studentis",
-      picture:
-        "https://lh3.googleusercontent.com/a/ALm5wu0q1lvDd5u_YtVaA_STBcXifC8uo8xajZCDhlk=s96-c",
-      email: "cody.studentis@code.berlin",
-      email_verified: true,
-      locale: "en",
-      hd: "code.berlin",
-    },
-  };
+//     strategy._token_response = {
+//       access_token: "at-1234",
+//       refresh_token: "dsfsf0",
+//       expires_in: 3600,
+//     };
 
-  it("it should create a new user if the email doesn't already exist in the db and start their session", (done) => {
-    agent.get("/auth/google").end(async (err, res) => {
-      const user = await sequelize.query(
-        `SELECT * FROM "User" WHERE "email" = 'cody.studentis@code.berlin';`,
-        { type: QueryTypes.SELECT }
-      );
+//     strategy._profile = {
+//       _json: {
+//         sub: "115903246074145320432",
+//         name: "Cody Studentis",
+//         given_name: "Cody",
+//         family_name: "Studentis",
+//         picture:
+//         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdRQkyJnY45wlcKinGmQoY8Qt7lLGye0-rcWO1CXo&s",
+//         email: "cody.studentis@code.berlin",
+//         email_verified: true,
+//         locale: "en",
+//         hd: "code.berlin",
+//       },
+//     };
 
-      expect(err).to.be.null;
-      expect(res).to.have.status(200);
-      expect(user).to.not.be.null;
-      expect(res).to.have.cookie("connect.sid");
-      done();
-    });
-  });
-});
+//     it("it should create a new user if the email doesn't already exist in the db and start their session", (done) => {
+//       agent.get("/auth/google").end(async (err, res) => {
+//         const user = await sequelize.query(
+//           `SELECT * FROM "User" WHERE "email" = 'cody.studentis@code.berlin';`,
+//           { type: QueryTypes.SELECT }
+//         );
+
+//         expect(err).to.be.null;
+//         expect(res).to.have.status(200);
+//         expect(user).to.not.be.null;
+//         expect(res).to.have.cookie("connect.sid");
+//         done();
+//       });
+//     });
+//   });
+// });
