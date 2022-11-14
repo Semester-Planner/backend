@@ -1,3 +1,5 @@
+const { use } = require("chai");
+
 // populate with random string
 function randString(length) {
   var result = "";
@@ -20,22 +22,37 @@ function randomDate(start, end) {
 // create entry for each UserModule
 module.exports = {
   up: async (queryInterface) => {
-    const usermods = await queryInterface.sequelize.query(
-      'SELECT id FROM "UserModule"'
-    );
+    const data = (
+      await queryInterface.sequelize.query(
+        `SELECT 
+        "UserModule"."id" AS "umId",
+        "Module"."name" AS "modName",
+        "Requirement"."name" AS "reqName",
+        "Requirement"."description" AS "reqDescription",
+        "Requirement"."date" AS "reqDate"
+        FROM "UserModule" 
+        JOIN "ModuleRequirement" 
+        ON "UserModule"."moduleId"="ModuleRequirement"."moduleId"
+        JOIN "Requirement"
+        ON "ModuleRequirement"."requirementId"="Requirement"."id"
+        JOIN "Module"
+        ON "UserModule"."moduleId"="Module"."id";`
+      )
+    )[0];
 
-    const elements = () => {
-      return usermods[0].map((elem) => {
-        return {
-          userModuleId: elem.id,
-          name: randString(15),
-          description: randString(50),
-          date: randomDate(new Date(2022, 0, 1), new Date(2022, 12, 15)),
-          notes: randString(25),
-        };
+    const entries = [];
+
+    data.forEach((elem) => {
+      entries.push({
+        userModuleId: elem.umId,
+        name: `${elem.modName}: ${elem.reqName}`,
+        description: elem.reqDescription,
+        date: elem.reqDate,
+        notes: null,
       });
-    };
-    await queryInterface.bulkInsert("Entry", elements());
+    });
+
+    await queryInterface.bulkInsert("Entry", entries);
   },
 
   down: async (queryInterface) => {
