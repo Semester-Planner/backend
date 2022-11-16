@@ -32,6 +32,11 @@ module.exports = {
         onUpdate: "CASCADE",
       },
     });
+
+    await queryInterface.addConstraint("ModuleRequirement", {
+      fields: ["moduleId", "requirementId"],
+      type: "unique",
+    });
   },
 
   async down(queryInterface, Sequelize) {
