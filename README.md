@@ -6,17 +6,19 @@ Table of Content:
 
 1. [Prerequisites](#prerequisites)
 1. [Setup](#setup)
-1. [Entity Relationship Model](#entity-relationship-model)
+1. [The Database](#the-database)
 1. [Usage](#usage)
-1. [Tests](#test)
+1. [Tests](#tests)
 1. [Credits](#credits)
 1. [License](#license)
+
 
 ## Prerequisites
 
 1. Setup local database with [PostgreSQL](https://www.postgresql.org/) (v14.5)
 2. Install [Node.js](https://nodejs.org/en/)
 3. Download/Clone both git repositories: frontend & backend
+
 
 ## Setup
 
@@ -54,16 +56,62 @@ npm run setup:db
 npm run start
 ```
 
-## Entity Relationship Model
 
-Add image of ERM (syntax example:)
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+## The Database
+
+#### Entity Relationship Model
+
+![ERM](https://user-images.githubusercontent.com/101812067/202504533-983c1554-76b9-4eed-912d-e4b647fba631.png)
+
+- Module belongsToMany User through UserModule
+- Module belongsToMany Requirement through ModuleRequirement
+- Requirement belongsToMany Module through ModuleRequirement
+- User belongsToMany Module through UserModule
+- UserModule hasMany Entry
+
+
+#### Constraints
+
+See the ERM for Primary keys, Foreign keys and uuid's (all unique constraints).
+
+Composite unique constraints for joint tables to avoid duplicate rows:
+UserModule {fields ["userId", "moduleId"]}
+ModuleRequirement {fields ["moduleId", "requirementId]}
+
+
+#### Indeces
+
+PostgreSQL creates a BTREE index on every primary key and unique constraint by default, but not for foreign keys. Although not necessary for the current state of the project, indexing foreign keys in the future will dramatically improve query performance when our datasets have grown.
+
+
+#### Optimization
+
+What we plan to consider and adapt on when finalising the development process:
+  - [PostgreSQL performance tuning and optimization](https://www.devart.com/dbforge/postgresql/studio/postgresql-performance-tuning-and-optimization.html)
+  - [PostgreSQL triggers](https://www.postgresql.org/docs/current/plpgsql-trigger.html)
+
 
 ## Usage
+*in progress
+
 
 ## Tests
+*in progress
+
+(See package.json for related scripts and test folder)
+
 
 ## Credits
+
+Massimiliano Ricci massi.ricci@code.berlin
+> *Full-Stack Developer and Project Manager*
+
+Donna Magi donna.magi@code.berlin
+> *Front-End Developer and Designer*
+
+Alsje Lourens alsje.lourens@code.berlin
+> *Back-End Developer*
+
 
 ## License
 
