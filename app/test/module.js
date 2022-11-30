@@ -32,30 +32,30 @@ describe("ModuleTests", () => {
   });
 
   describe("GET /auth/google", () => {
-    const strategy = passport._strategies["google"];
-
-    strategy._token_response = {
-      access_token: "at-1234",
-      refresh_token: "dsfsf0",
-      expires_in: 3600,
-    };
-
-    strategy._profile = {
-      _json: {
-        sub: "115903246074145320432",
-        name: "Donna Magi",
-        given_name: "Donna",
-        family_name: "Magi",
-        picture:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdRQkyJnY45wlcKinGmQoY8Qt7lLGye0-rcWO1CXo&s",
-        email: "donna.magi@code.berlin",
-        email_verified: true,
-        locale: "en",
-        hd: "code.berlin",
-      },
-    };
-
     before(async () => {
+      const strategy = passport._strategies["google"];
+
+      strategy._token_response = {
+        access_token: "at-1234",
+        refresh_token: "dsfsf0",
+        expires_in: 3600,
+      };
+
+      strategy._profile = {
+        _json: {
+          sub: "115903246074145320432",
+          name: "Donna Magi",
+          given_name: "Donna",
+          family_name: "Magi",
+          picture:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdRQkyJnY45wlcKinGmQoY8Qt7lLGye0-rcWO1CXo&s",
+          email: "donna.magi@code.berlin",
+          email_verified: true,
+          locale: "en",
+          hd: "code.berlin",
+        },
+      };
+
       user = await sequelize.query(
         `SELECT * FROM "User" WHERE "email" = 'donna.magi@code.berlin';`,
         { type: QueryTypes.SELECT }
