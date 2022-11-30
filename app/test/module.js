@@ -31,6 +31,26 @@ describe("ModuleTests", () => {
     });
   });
 
+  describe("POST /module/createModule", () => {
+    it("should add a module entry to the database", (done) => {
+      let module = {
+        name: "testName",
+        mod_code: "testModCode",
+        department: "testDeparment",
+        coordinator: "testCoordinator",
+      };
+      agent
+        .post("/module/createModule")
+        .send(module)
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.a("object");
+          done();
+        });
+    });
+  });
+
   describe("GET /auth/google", () => {
     before(async () => {
       const strategy = passport._strategies["google"];
