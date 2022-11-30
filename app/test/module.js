@@ -55,13 +55,15 @@ describe("ModuleTests", () => {
       },
     };
 
+    before(async () => {
+      user = await sequelize.query(
+        `SELECT * FROM "User" WHERE "email" = 'donna.magi@code.berlin';`,
+        { type: QueryTypes.SELECT }
+      );
+    });
+
     it("it should authenticate the exising user and start their session", (done) => {
       agent.get("/auth/google").end(async (err, res) => {
-        const user = await sequelize.query(
-          `SELECT * FROM "User" WHERE "email" = 'donna.magi@code.berlin';`,
-          { type: QueryTypes.SELECT }
-        );
-
         expect(err).to.be.null;
         expect(res).to.have.status(200);
         expect(user).to.not.be.null;
@@ -73,11 +75,6 @@ describe("ModuleTests", () => {
     describe("GET /module/getAllUserModules", () => {
       it("should return all user modules in array", (done) => {
         agent.get("/module/getAllUserModules").end(async (err, res) => {
-          const user = await sequelize.query(
-            `SELECT * FROM "User" WHERE "email" = 'donna.magi@code.berlin';`,
-            { type: QueryTypes.SELECT }
-          );
-
           expect(err).to.be.null;
           expect(user).to.not.be.null;
           expect(res).to.have.status(200);
