@@ -132,5 +132,19 @@ describe("ModuleTests", () => {
           });
       });
     });
+
+    describe("POST /module/removeModule", () => {
+      it("should remove respective Module and User from UserModule table", (done) => {
+        agent
+          .post("/module/removeModule")
+          .send(mod)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.a("object");
+            done();
+          });
+      });
+    });
   });
 });
