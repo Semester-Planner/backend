@@ -136,7 +136,7 @@ describe("ModuleTests", () => {
     describe("DELETE /module/removeModule", () => {
       it("should remove respective Module and User from UserModule table", (done) => {
         agent
-          .post("/module/removeModule")
+          .delete("/module/removeModule")
           .send(...mod)
           .end((err, res) => {
             expect(err).to.be.null;
