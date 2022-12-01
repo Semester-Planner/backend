@@ -123,7 +123,7 @@ describe("ModuleTests", () => {
       it("should add a Module from Module Table to respective user (UserModule table)", (done) => {
         agent
           .post("/module/addModule")
-          .send(mod)
+          .send(...mod)
           .end((err, res) => {
             expect(err).to.be.null;
             expect(res).to.have.status(200);
@@ -137,7 +137,7 @@ describe("ModuleTests", () => {
       it("should remove respective Module and User from UserModule table", (done) => {
         agent
           .post("/module/removeModule")
-          .send(mod)
+          .send(...mod)
           .end((err, res) => {
             expect(err).to.be.null;
             expect(res).to.have.status(200);
