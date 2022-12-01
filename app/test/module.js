@@ -133,7 +133,7 @@ describe("ModuleTests", () => {
       });
     });
 
-    describe("POST /module/removeModule", () => {
+    describe("DELETE /module/removeModule", () => {
       it("should remove respective Module and User from UserModule table", (done) => {
         agent
           .post("/module/removeModule")

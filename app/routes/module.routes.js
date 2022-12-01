@@ -13,6 +13,6 @@ router.get("/getAllModules", getAllModules);
 router.get("/getAllUserModules", getAllUserModules);
 router.post("/createModule", createModule);
 router.post("/addModule", addModule);
-router.post("/removeModule", removeModule);
+router.delete("/removeModule", removeModule);
 
 module.exports = router;
