@@ -33,7 +33,7 @@ describe("ModuleTests", () => {
 
   describe("POST /module/createModule", () => {
     it("should add a module entry to the database", (done) => {
-      let module = {
+      let newModule = {
         name: "testName",
         mod_code: "testModCode",
         department: "testDeparment",
@@ -41,7 +41,7 @@ describe("ModuleTests", () => {
       };
       agent
         .post("/module/createModule")
-        .send(module)
+        .send(newModule)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
@@ -81,8 +81,12 @@ describe("ModuleTests", () => {
         { type: QueryTypes.SELECT }
       );
 
-      mod = await sequelize.query(
+      moduleNotAdded = await sequelize.query(
         `SELECT "id" FROM "Module" WHERE "name" = 'testName';`,
+        { type: QueryTypes.SELECT }
+      );
+      moduleAdded = await sequelize.query(
+        `SELECT "id" FROM "Module" WHERE "name" = 'Leadership';`,
         { type: QueryTypes.SELECT }
       );
     });
@@ -123,11 +127,21 @@ describe("ModuleTests", () => {
       it("should add a Module from Module Table to respective user (UserModule table)", (done) => {
         agent
           .post("/module/addModule")
-          .send(...mod)
+          .send(...moduleNotAdded)
           .end((err, res) => {
             expect(err).to.be.null;
             expect(res).to.have.status(200);
             expect(res.body).to.be.a("object");
+            done();
+          });
+      });
+      it("should fail to add a duplicate module to UserModule table", (done) => {
+        agent
+          .post("/module/removeModule")
+          .send(...moduleAdded)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(404);
             done();
           });
       });
@@ -137,7 +151,7 @@ describe("ModuleTests", () => {
       it("should remove respective Module and User from UserModule table", (done) => {
         agent
           .delete("/module/removeModule")
-          .send(...mod)
+          .send(...moduleAdded)
           .end((err, res) => {
             expect(err).to.be.null;
             expect(res).to.have.status(200);
