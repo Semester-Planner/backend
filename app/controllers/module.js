@@ -2,7 +2,6 @@ const db = require("../db/models");
 
 const { Module } = db;
 
-// get all modules
 exports.getAllModules = (_req, res, next) => {
   Module.findAll()
     .then((modules) => {
@@ -11,7 +10,6 @@ exports.getAllModules = (_req, res, next) => {
     .catch((err) => next(err));
 };
 
-// get all user's modules
 exports.getAllUserModules = (req, res, next) => {
   const { user } = req;
 
@@ -21,7 +19,6 @@ exports.getAllUserModules = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-// create module
 exports.createModule = (req, res, next) => {
   const {
     body: { name, mod_code, department, coordinator },
@@ -39,7 +36,6 @@ exports.createModule = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-// adds module to userModule
 exports.addModule = (req, res, next) => {
   const {
     body: { id },
@@ -52,7 +48,6 @@ exports.addModule = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-// removes module from userModule
 exports.removeModule = (req, res, next) => {
   const {
     body: { id },
