@@ -1,4 +1,3 @@
-// create entry for each UserModule
 module.exports = {
   up: async (queryInterface) => {
     const data = (
