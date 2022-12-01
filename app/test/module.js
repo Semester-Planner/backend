@@ -135,6 +135,16 @@ describe("ModuleTests", () => {
             done();
           });
       });
+      it("should fail to add a duplicate module to UserModule table", (done) => {
+        agent
+          .post("/module/removeModule")
+          .send(...moduleAdded)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(404);
+            done();
+          });
+      });
     });
 
     describe("DELETE /module/removeModule", () => {
