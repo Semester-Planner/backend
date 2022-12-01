@@ -1,4 +1,3 @@
-// login
 exports.successfulLogin = async (req, res, _next) => {
   const user = await req.user;
   if (user) {
@@ -7,7 +6,6 @@ exports.successfulLogin = async (req, res, _next) => {
   return res.status(403).send();
 };
 
-// logout
 exports.logout = (req, res, next) => {
   req.logout((err) => {
     if (err) {
@@ -17,7 +15,6 @@ exports.logout = (req, res, next) => {
   });
 };
 
-// check session
 exports.checkAuth = (req, res, next) => {
   res.status(req.isAuthenticated() ? 200 : 401).send();
 };
