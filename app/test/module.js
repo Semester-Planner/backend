@@ -85,6 +85,10 @@ describe("ModuleTests", () => {
         `SELECT "id" FROM "Module" WHERE "name" = 'testName';`,
         { type: QueryTypes.SELECT }
       );
+      moduleAdded = await sequelize.query(
+        `SELECT "id" FROM "Module" WHERE "name" = 'Leadership';`,
+        { type: QueryTypes.SELECT }
+      );
     });
 
     it("it should authenticate the exising user and start their session", (done) => {
@@ -136,8 +140,8 @@ describe("ModuleTests", () => {
     describe("DELETE /module/removeModule", () => {
       it("should remove respective Module and User from UserModule table", (done) => {
         agent
-          .post("/module/removeModule")
-          .send(...moduleNotAdded)
+          .delete("/module/removeModule")
+          .send(...moduleAdded)
           .end((err, res) => {
             expect(err).to.be.null;
             expect(res).to.have.status(200);
