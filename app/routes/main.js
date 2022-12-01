@@ -13,7 +13,7 @@ const entryRoutes = require("./entry.routes");
 const requirementRoutes = require("./requirement.routes");
 
 router.use("/auth", authRoutes);
-router.use(checkAuth);
+// router.use(checkAuth);
 router.use("/users", userRoutes);
 router.use("/module", moduleRoutes);
 router.use("/entry", entryRoutes);
