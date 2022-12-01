@@ -10,7 +10,7 @@ router.get(
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
-// authorized redirect
+// authorize
 if (NODE_ENV != "test") {
   router.get(
     "/google/callback",
@@ -26,10 +26,8 @@ if (NODE_ENV != "test") {
   );
 }
 
-// log out user
 router.get("/logout", logout);
 
-// checks session
 router.get("/session", checkAuth);
 
 module.exports = router;

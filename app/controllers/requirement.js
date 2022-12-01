@@ -2,7 +2,6 @@ const db = require("../db/models");
 
 const { Module } = db;
 
-// get all module's requirements
 exports.getAllModuleReqs = (req, res, next) => {
   const { body: id } = req;
 

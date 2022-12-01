@@ -2,7 +2,6 @@ const db = require("../db/models");
 
 const { User } = db;
 
-// create user
 exports.createUser = async (data) => {
   const user = await User.findOrCreate({
     where: { email: data._json.email },

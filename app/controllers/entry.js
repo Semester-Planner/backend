@@ -2,7 +2,6 @@ const db = require("../db/models");
 
 const { Entry } = db;
 
-// get all entries
 exports.getAllEntries = (_req, res, next) => {
   Entry.findAll()
     .then((entries) => {
@@ -11,7 +10,6 @@ exports.getAllEntries = (_req, res, next) => {
     .catch((err) => next(err));
 };
 
-// create entry
 exports.createEntry = (req, res, next) => {
   const {
     body: { name, description, date, notes },

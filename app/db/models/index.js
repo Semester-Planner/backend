@@ -20,7 +20,6 @@ if (config.use_env_variable) {
   );
 }
 
-// To make sure the interface to generate UUID exists
 sequelize
   .getQueryInterface()
   .sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');

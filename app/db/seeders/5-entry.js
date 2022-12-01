@@ -1,25 +1,3 @@
-const { use } = require("chai");
-
-// populate with random string
-function randString(length) {
-  var result = "";
-  var letters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz          ";
-  var stringLength = letters.length;
-  for (var i = 0; i < length; i++) {
-    result += letters.charAt(Math.floor(Math.random() * stringLength));
-  }
-  return result;
-}
-
-// populate with random date
-function randomDate(start, end) {
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  );
-}
-
-// create entry for each UserModule
 module.exports = {
   up: async (queryInterface) => {
     const data = (
