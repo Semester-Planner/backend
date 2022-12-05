@@ -7,6 +7,7 @@
     "test": "cross-env NODE_ENV=test mocha ./app/test",
     "start": "node app.js",
     "dev": "nodemon -e js,json --quiet --trace-warnings app.js",
+    "noauth": "cross-env NOAUTH=true nodemon -e js,json --quiet --trace-warnings app.js",
     "setup:db": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "repository": {
